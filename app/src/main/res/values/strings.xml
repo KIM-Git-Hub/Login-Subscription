@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">study-app03</string>
+    <string name="id">ID</string>
+    <string name="password">パスワード</string>
+    <string name="login">ログイン</string>
+    <string name="createAccount">会員登録</string>
+    <string name="confirmPassword">パスワード確認</string>
+</resources>
