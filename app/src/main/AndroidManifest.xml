@@ -23,6 +23,9 @@
         <activity android:name=".CreateAccountActivity">
 
         </activity>
+        <activity android:name=".MainPageActivity">
+
+        </activity>
     </application>
 
 </manifest>

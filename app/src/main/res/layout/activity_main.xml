@@ -10,13 +10,13 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/id"
+        android:text="@string/email"
         android:textColor="@color/black"
         android:textSize="20sp"
         android:textStyle="bold" />
 
     <EditText
-        android:id="@+id/id"
+        android:id="@+id/loginEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
@@ -24,7 +24,7 @@
         android:focusableInTouchMode="true"
         android:importantForAutofill="no"
         tools:ignore="LabelFor"
-        android:inputType="text" />
+        android:inputType="textEmailAddress" />
 
     <TextView
         android:layout_width="match_parent"
@@ -35,7 +35,7 @@
         android:textStyle="bold" />
 
     <EditText
-        android:id="@+id/password"
+        android:id="@+id/loginPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"

@@ -9,14 +9,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="20sp"
-        android:text="@string/id"/>
+        android:text="@string/email"/>
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/createID"
-        android:autofillHints="ID"
-        android:inputType="text"
+        android:id="@+id/createEmail"
+        android:autofillHints="emailAddress"
+        android:inputType="textEmailAddress"
         tools:ignore="LabelFor" />
 
     <TextView
