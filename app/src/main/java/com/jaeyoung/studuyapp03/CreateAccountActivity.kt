@@ -22,18 +22,25 @@ class CreateAccountActivity : AppCompatActivity() {
         mBinding = CreateAccountBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
+        val createID = binding.createID.text
+        val createPassword = binding.createPassword.text
+        val confirmPassword = binding.confirmPassword.text
 
         binding.createAccountButton.setOnClickListener {
-            /*  if(binding.createPassword.text != binding.confirmPassword.text){
-                  Toast.makeText(this,"ㄴㄴ", Toast.LENGTH_SHORT).show()
-              }*/
 
-            val db = Firebase.firestore
-            val data = hashMapOf("id" to "id", "password" to "password")
-            db.collection("test").document("test2").set(data).addOnSuccessListener {
-                Log.d("hh","hh")
-            }.addOnFailureListener { e -> Log.d("ss,", "ss") }
+            if(createPassword.toString() != confirmPassword.toString()){
+                Toast.makeText(this, "비밀번호가 일치하지 않음", Toast.LENGTH_SHORT).show()
+            }else{
+                val db = Firebase.firestore
+                val data =
+                    hashMapOf("id" to createID.toString(), "password" to createPassword.toString())
+                db.collection("studyApp").document("account").set(data).addOnSuccessListener {
+                    Log.d("ㅎㅎ", "ㅎㅎ")
+                }.addOnFailureListener { e -> Log.d("ㅠㅠ,", "ㅠㅠ") }
+            }
+
+
+
         }
     }
 
