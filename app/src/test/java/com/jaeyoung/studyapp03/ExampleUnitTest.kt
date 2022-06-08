@@ -1,4 +1,4 @@
-package com.jaeyoung.studuyapp03
+package com.jaeyoung.studyapp03
 
 import org.junit.Test
 

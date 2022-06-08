@@ -1,17 +1,14 @@
-package com.jaeyoung.studuyapp03
+package com.jaeyoung.studyapp03
 
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
-import com.jaeyoung.studuyapp03.databinding.ActivityMainBinding
-import com.jaeyoung.studuyapp03.databinding.CreateAccountBinding
-import com.jaeyoung.studuyapp03.databinding.MainPageBinding
+
+import com.jaeyoung.studyapp03.databinding.MainPageBinding
+
 
 class MainPageActivity : AppCompatActivity() {
 
@@ -23,7 +20,7 @@ class MainPageActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        auth = Firebase.auth
+        auth = FirebaseAuth.getInstance()
         mBinding = MainPageBinding.inflate(layoutInflater)
         setContentView(binding.root)
 

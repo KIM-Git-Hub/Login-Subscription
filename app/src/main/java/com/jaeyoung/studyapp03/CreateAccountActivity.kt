@@ -1,20 +1,17 @@
-package com.jaeyoung.studuyapp03
+package com.jaeyoung.studyapp03
 
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.jaeyoung.studuyapp03.databinding.CreateAccountBinding
+import com.jaeyoung.studyapp03.databinding.CreateAccountBinding
+
 
 class CreateAccountActivity : AppCompatActivity() {
 
-    private var mBinding: CreateAccountBinding? = null
+    private var mBinding: CreateAccountBinding? =null
     private val binding get() = mBinding!!
 
     private var auth: FirebaseAuth? = null
