@@ -7,4 +7,5 @@
     <string name="confirmPassword">パスワード確認</string>
     <string name="logout">ログアウト</string>
     <string name="googleLogin">GOOGLE</string>
+    <string name="revokeAccess">revoke</string>
 </resources>

@@ -5,8 +5,17 @@
     android:layout_height="match_parent">
 
     <Button
-        android:id="@+id/logout"
+        android:id="@+id/signOut"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:text="@string/logout"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/revokeAccess"
+        android:text="@string/revokeAccess"/>
+
+
 
 </LinearLayout>

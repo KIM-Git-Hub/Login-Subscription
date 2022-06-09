@@ -57,9 +57,12 @@
         android:layout_height="wrap_content"
         android:text="@string/createAccount" />
 
-    <Button
-        android:id="@+id/googleLogin"
+
+
+    <com.google.android.gms.common.SignInButton
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/googleLogin" />
+        android:id="@+id/googleLogin"/>
+
+
 </LinearLayout>

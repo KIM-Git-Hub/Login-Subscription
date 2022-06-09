@@ -16,7 +16,7 @@ class MainPageActivity : AppCompatActivity() {
     private val binding get() = mBinding!!
 
     private var auth: FirebaseAuth? = null
-    private var googleSignInClient: GoogleSignInClient? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,23 +24,35 @@ class MainPageActivity : AppCompatActivity() {
         mBinding = MainPageBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.signOut.setOnClickListener {
+            signOut()
+        }
 
-
-        binding.logout.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
-            //실행하는 액티비티가 스택에 있으면 새로 시작하지 않고 상위 스택 모두 제거.
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-            startActivity(intent)
-            Toast.makeText(this, "로그아웃 성공", Toast.LENGTH_SHORT).show()
-            auth?.signOut()
-            googleSignInClient?.revokeAccess()?.addOnCompleteListener(this){
-
-            }
+        binding.revokeAccess.setOnClickListener {
+            revokeAccess()
         }
     }
 
     override fun onDestroy() {
         super.onDestroy()
         mBinding = null
+    }
+
+    private fun signOut(){
+        val intent = Intent(this, MainActivity::class.java)
+        //실행하는 액티비티가 스택에 있으면 새로 시작하지 않고 상위 스택 모두 제거.
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        startActivity(intent)
+        Toast.makeText(this, "로그아웃 성공", Toast.LENGTH_SHORT).show()
+        auth?.signOut()
+    }
+    private fun revokeAccess(){
+        val intent = Intent(this, MainActivity::class.java)
+        //실행하는 액티비티가 스택에 있으면 새로 시작하지 않고 상위 스택 모두 제거.
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        startActivity(intent)
+        Toast.makeText(this, "회원탈퇴 성공", Toast.LENGTH_SHORT).show()
+        auth?.currentUser?.delete()
+        auth?.signOut()
     }
 }
