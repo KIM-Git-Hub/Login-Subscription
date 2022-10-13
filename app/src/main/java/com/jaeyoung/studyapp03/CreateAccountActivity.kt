@@ -1,6 +1,7 @@
 package com.jaeyoung.studyapp03
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
@@ -33,6 +34,7 @@ class CreateAccountActivity : AppCompatActivity() {
                 Toast.makeText(this, "비밀번호가 일치하지 않음", Toast.LENGTH_SHORT).show()
             } else {
                 createAccount(createEmail, createPassword)
+
             }
 
         }
@@ -53,6 +55,7 @@ class CreateAccountActivity : AppCompatActivity() {
                     ).show()
                     finish() // 가입창 종료
                 } else {
+
                     Toast.makeText(
                         this, "계정 생성 실패",
                         Toast.LENGTH_SHORT

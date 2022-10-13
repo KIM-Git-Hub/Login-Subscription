@@ -4,6 +4,10 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat.startActivity
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdView
+import com.google.android.gms.ads.MobileAds
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.firebase.auth.FirebaseAuth
 
@@ -17,6 +21,7 @@ class MainPageActivity : AppCompatActivity() {
 
     private var auth: FirebaseAuth? = null
 
+    lateinit var mAdView: AdView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,6 +36,14 @@ class MainPageActivity : AppCompatActivity() {
         binding.revokeAccess.setOnClickListener {
             revokeAccess()
         }
+
+        //모바일 광고 sdk 초기화
+        MobileAds.initialize(this)
+        //광고 띄우기
+        mAdView = binding.adViewBanner
+        val adRequest = AdRequest.Builder().build()
+        mAdView.loadAd(adRequest)
+
     }
 
     override fun onDestroy() {

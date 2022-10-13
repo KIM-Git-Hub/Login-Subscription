@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity() {
 
         auth = FirebaseAuth.getInstance()
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken("147719625226-qpicac74ag7dmbi8sj4kqq904ggpia2v.apps.googleusercontent.com")
+            .requestIdToken("457909892680-o9c8mhrsrh9kp8k6qdfp8qjkkjsuoqsp.apps.googleusercontent.com")
             .requestEmail()
             .build()
         googleSignInClient = GoogleSignIn.getClient(this, gso)
