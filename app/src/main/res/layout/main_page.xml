@@ -24,4 +24,11 @@
         ads:adSize="BANNER"
         ads:adUnitId="ca-app-pub-3940256099942544/6300978111" />
 
+    <TextView
+        android:gravity="center"
+        android:id="@+id/textViewOneTimePayment"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="결제 테스트"/>
+
 </LinearLayout>
