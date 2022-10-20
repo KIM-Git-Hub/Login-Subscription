@@ -1,22 +1,23 @@
 package com.jaeyoung.studyapp03
 
 import android.content.Intent
-import android.icu.lang.UCharacter.GraphemeClusterBreak.L
+
 import android.os.Bundle
 import android.util.Log
-import android.util.Log.d
+
+
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat.startActivity
+
 import com.android.billingclient.api.*
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdView
 import com.google.android.gms.ads.MobileAds
-import com.google.android.gms.auth.api.signin.GoogleSignInClient
-import com.google.api.Billing
+
 import com.google.common.collect.ImmutableList
 import com.google.firebase.auth.FirebaseAuth
+
 
 import com.jaeyoung.studyapp03.databinding.MainPageBinding
 import kotlinx.coroutines.CoroutineScope
@@ -51,6 +52,9 @@ class MainPageActivity : AppCompatActivity(), PurchasesUpdatedListener {
         mBinding = MainPageBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        textViewOneTimePayment = binding.textViewOneTimePayment
+        initBillingClient()
+
         binding.signOut.setOnClickListener {
             signOut()
         }
@@ -66,11 +70,12 @@ class MainPageActivity : AppCompatActivity(), PurchasesUpdatedListener {
         val adRequest = AdRequest.Builder().build()
         mAdView.loadAd(adRequest)
 
+        setListener()
+
     }
 
-    private fun initView() {
-        textViewOneTimePayment = binding.textViewOneTimePayment
-    }
+
+
 
 
     //먼저 통신을 지원하는 인터페이스인 billingClient를 초기화하고 구글 결제 서버와 연결한다.
@@ -104,11 +109,18 @@ class MainPageActivity : AppCompatActivity(), PurchasesUpdatedListener {
             }
 
         })
-
+       consumeListener = ConsumeResponseListener { billingResult, purchaseToken ->
+            Log.d(tag, "billingResult.responseCode : ${billingResult.responseCode}")
+            if(billingResult.responseCode == BillingClient.BillingResponseCode.OK) {
+                Log.d(tag, "소모 성공")
+            } else {
+                Log.d(tag, "소모 실패")
+            }
+        }
     }
 
     //구매 가능 목록을 호출
-    suspend fun querySkuDetails() {
+     fun querySkuDetails() {
         Log.d(tag, "querySkuDetails")
 
         //5.0 마이그레이션
@@ -138,6 +150,8 @@ class MainPageActivity : AppCompatActivity(), PurchasesUpdatedListener {
                 .setProductDetailsParamsList(listOf(flowProductDetailsParams)).build()
 
             val responseCode = billingClient.launchBillingFlow(this, flowParams).responseCode
+            Log.d(tag, responseCode.toString())
+            Log.d(tag, BillingClient.BillingResponseCode.OK.toString())
 //lowDetailParams를 통해 먼저 BillingFlowParams.ProductDetailParams 객체를 만들어야 한다.. 왜냐면..
 //
 //BillingFlowParams는 setProductDetailsParamsList 만 제공하고, 여기에서 요구하는 객체는 List<BillingFlowParams.ProductDetailParams>이기 때문이다.. 따라서 우리는 결제목록을 불러왔다면, 거기서 결제하고 싶은 상품을 BillingFlowParams.ProductDetailParams로 우선적으로 만들고, 그것을 listOf를 통해 리스트화 해서 넣어야한다. 이후에 billingCilent.launchBillingFlow(this, flowParams)를 통해 구글 결제창을 띄운다.
@@ -145,8 +159,17 @@ class MainPageActivity : AppCompatActivity(), PurchasesUpdatedListener {
     }
 
     override fun onPurchasesUpdated(billingResult: BillingResult, purchase: MutableList<Purchase>?) {
-//앱 콘송애서 테스트 추가 및 결제 등록하기 10.17
+        Log.d(tag, billingResult.responseCode.toString())
+        if(billingResult.responseCode == BillingClient.BillingResponseCode.OK && purchase != null){
+            for (i in purchase){
+                Log.d(tag, "구매 성공")
+                val consumeParams = ConsumeParams.newBuilder().setPurchaseToken(i.purchaseToken)
+
+            }
+        }
     }
+
+
 
     override fun onDestroy() {
         super.onDestroy()
