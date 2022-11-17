@@ -66,10 +66,5 @@ dependencies {
     //코루틴
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.0'
 
-    //Immutable Collection
-    // https://mvnrepository.com/artifact/org.jetbrains.kotlinx/kotlinx-collections-immutable
-    runtimeOnly 'org.jetbrains.kotlinx:kotlinx-collections-immutable:0.3.5'
 
-    // https://mvnrepository.com/artifact/com.google.guava/guava
-    implementation 'com.google.guava:guava:31.1-android'
 }
