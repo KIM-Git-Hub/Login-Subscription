@@ -24,11 +24,35 @@
         ads:adSize="BANNER"
         ads:adUnitId="ca-app-pub-3940256099942544/6300978111" />
 
-    <TextView
-        android:gravity="center"
-        android:id="@+id/textViewOneTimePayment"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:text="결제 테스트"/>
 
+<LinearLayout
+    android:layout_marginTop="30dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="sub : "
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/subState"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        android:textStyle="bold"/>
+
+
+</LinearLayout>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="결제하기"
+        android:id="@+id/btn_purchase"/>
 </LinearLayout>

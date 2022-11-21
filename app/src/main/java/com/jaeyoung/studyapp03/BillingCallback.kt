@@ -3,6 +3,9 @@ package com.jaeyoung.studyapp03
 import android.app.Activity
 import android.util.Log
 import com.android.billingclient.api.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 interface BillingCallback { // BillingManager 모듈 구현 //결제 Callback 인터페이스
     fun onBillingConnected() // BillingClient 연결 성공 시 호출
@@ -14,8 +17,8 @@ class BillingManager(private val activity: Activity, private val callback: Billi
 
     private val purchasesUpdatedListener = PurchasesUpdatedListener{ billingResult, purchases ->
         if (billingResult.responseCode == BillingClient.BillingResponseCode.OK && purchases != null) {
-            for (i in purchases) {
-                confirmPurchase(i)
+            for (purchase in purchases) {
+                confirmPurchase(purchase)
             }
         } else {
             callback.onFailure(billingResult.responseCode)
@@ -45,8 +48,75 @@ class BillingManager(private val activity: Activity, private val callback: Billi
         })
     }
 
-    private fun confirmPurchase(purchases: Purchase) {
+    /**
+     * 콘솔에 등록한 상품 리스트를 가져온다.
+     * @param sku 상품 ID String
+     * @param billingType String IN_APP or SUBS
+     * @param resultBlock 결과로 받을 상품정보들에 대한 처리
+     */
+    fun getSkuDetails(vararg sku: String, billingType: String, resultBlock: (List<SkuDetails>) -> Unit = {}){
+        val params = SkuDetailsParams.newBuilder().setSkusList(sku.asList()).setType(billingType)
 
+        billingClient.querySkuDetailsAsync(params.build()) { _, list ->
+            CoroutineScope(Dispatchers.Main).launch {
+                resultBlock(list ?: emptyList())
+            }
+        }
+    }
+    /**
+     * 구독 여부 확인
+     * @param sku String 구매 확인 상품
+     * @param resultBlock 구매 확인 상품에 대한 처리 return Purchase
+     */
+
+    fun checkSubscribed(sku: String, resultBlock: (Purchase?) -> Unit){
+        billingClient.queryPurchasesAsync(sku){_, purchases ->
+            CoroutineScope(Dispatchers.Main).launch{
+                for(purchase in purchases){
+                    if(purchase.isAcknowledged && purchase.purchaseState == Purchase.PurchaseState.PURCHASED){
+                        return@launch resultBlock(purchase)
+                    }
+                }
+                return@launch resultBlock(null)
+            }
+        }
+    }
+
+    /**
+     * 구매 확인
+     * @param purchase
+     */
+    private fun confirmPurchase(purchase: Purchase) {
+        if(purchase.purchaseState == Purchase.PurchaseState.PURCHASED && !purchase.isAcknowledged){
+            // 구매를 완료 했지만 확인이 되지 않은 경우 확인 처리
+            val ackPurchaseParams = AcknowledgePurchaseParams.newBuilder().setPurchaseToken(purchase.purchaseToken)
+
+            CoroutineScope(Dispatchers.Main).launch{
+                billingClient.acknowledgePurchase(ackPurchaseParams.build()){
+                    if(it.responseCode == BillingClient.BillingResponseCode.OK){
+                        callback.onSuccess(purchase)
+                    }else{
+                        callback.onFailure(it.responseCode)
+                    }
+                }
+            }
+        }
+
+    }
+
+    /**
+     * 구매 확인이 안 된 경우 다시 확인 할 수 있도록
+     */
+    fun onResume(type: String){
+        if(billingClient.isReady){
+            billingClient.queryPurchasesAsync(type) { _, purchases ->
+                for (purchase in purchases){
+                    if(!purchase.isAcknowledged && purchase.purchaseState == Purchase.PurchaseState.PURCHASED){
+                        confirmPurchase(purchase)
+                    }
+                }
+            }
+        }
     }
 }
 
