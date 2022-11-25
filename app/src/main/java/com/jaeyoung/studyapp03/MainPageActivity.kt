@@ -1,5 +1,6 @@
 package com.jaeyoung.studyapp03
 
+import android.annotation.SuppressLint
 import android.content.Intent
 
 import android.os.Bundle
@@ -37,6 +38,38 @@ class MainPageActivity : AppCompatActivity() {
 
     lateinit var mAdView: AdView
 
+    private lateinit var manager: BillingManager
+    val subItemID: String = "not yet"
+
+    private var mSkuDetails = listOf<SkuDetails>()
+    set(value) {
+        field = value
+        getSkuDetails()
+    }
+
+    private var currentSubscription: Purchase? = null
+    set(value) {
+        field = value
+        updateSubscriptionState()
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun updateSubscriptionState() {
+        currentSubscription?.let {
+            binding.subState.text = "구독중: ${it.skus} "
+        } ?: also {
+            binding.subState.text = "구독권이 없습니다."
+        }
+    }
+
+    private fun getSkuDetails() {
+        var info = ""
+        for (skuDetail in mSkuDetails) {
+            info += "${skuDetail.title}, ${skuDetail.price} \n"
+        }
+        Toast.makeText(this, info, Toast.LENGTH_SHORT).show()
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,6 +92,35 @@ class MainPageActivity : AppCompatActivity() {
         mAdView = binding.adViewBanner
         val adRequest = AdRequest.Builder().build()
         mAdView.loadAd(adRequest)
+
+
+        //구독
+        manager = BillingManager(this, object: BillingCallback{
+            override fun onBillingConnected() {
+                manager.getSkuDetails(subItemID, billingType = BillingClient.SkuType.SUBS){ list ->
+                    mSkuDetails = list
+                }
+                manager.checkSubscribed(subItemID){
+                    currentSubscription = it
+                }
+            }
+
+            override fun onSuccess(purchase: Purchase) {
+                currentSubscription = purchase
+            }
+
+            override fun onFailure(responseCode: Int) {
+               Toast.makeText(applicationContext, "구매 도중 오류 발생(${responseCode})", Toast.LENGTH_LONG).show()
+            }
+        })
+
+        binding.btnPurchase.setOnClickListener {
+            mSkuDetails.find { it.sku == subItemID }?.let { skuDetails ->
+                manager.purchaseSku(skuDetails)
+            } ?: also {
+                Toast.makeText(this, "구매 가능 한 상품이 없습니다.", Toast.LENGTH_LONG).show()
+            }
+        }
 
 
     }

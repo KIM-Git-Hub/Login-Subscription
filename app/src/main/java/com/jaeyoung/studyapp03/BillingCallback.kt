@@ -63,6 +63,23 @@ class BillingManager(private val activity: Activity, private val callback: Billi
             }
         }
     }
+
+    /**
+     * 구매 시도
+     * @param skuDetail SkuDetails 구매 할 상품
+     */
+    fun purchaseSku(skuDetail: SkuDetails) {
+        val flowParams = BillingFlowParams.newBuilder().apply {
+            setSkuDetails(skuDetail)
+        }.build()
+
+        val responseCode = billingClient.launchBillingFlow(activity, flowParams).responseCode
+        if (responseCode != BillingClient.BillingResponseCode.OK) {
+            callback.onFailure(responseCode)
+        }
+    }
+
+
     /**
      * 구독 여부 확인
      * @param sku String 구매 확인 상품
