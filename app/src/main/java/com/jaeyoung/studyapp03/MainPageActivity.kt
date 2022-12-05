@@ -2,29 +2,15 @@ package com.jaeyoung.studyapp03
 
 import android.annotation.SuppressLint
 import android.content.Intent
-
 import android.os.Bundle
-import android.util.Log
-
-
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat.startActivity
-
 import com.android.billingclient.api.*
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdView
 import com.google.android.gms.ads.MobileAds
-
-import com.google.common.collect.ImmutableList
 import com.google.firebase.auth.FirebaseAuth
-
-
 import com.jaeyoung.studyapp03.databinding.MainPageBinding
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 
 class MainPageActivity : AppCompatActivity() {
@@ -39,7 +25,7 @@ class MainPageActivity : AppCompatActivity() {
     lateinit var mAdView: AdView
 
     private lateinit var manager: BillingManager
-    val subItemID: String = "not yet"
+    val subsItemID: String = "studyapp"
 
     private var mSkuDetails = listOf<SkuDetails>()
     set(value) {
@@ -95,16 +81,16 @@ class MainPageActivity : AppCompatActivity() {
 
 
         //구독
-        manager = BillingManager(this, object: BillingCallback{
+        manager = BillingManager(this, object : BillingCallback {
             override fun onBillingConnected() {
-                manager.getSkuDetails(subItemID, billingType = BillingClient.SkuType.SUBS){ list ->
+                manager.getSkuDetails(subsItemID, billingType = BillingClient.SkuType.SUBS) { list ->
                     mSkuDetails = list
                 }
-                manager.checkSubscribed(subItemID){
+
+                manager.checkSubscribed(subsItemID) {
                     currentSubscription = it
                 }
             }
-
             override fun onSuccess(purchase: Purchase) {
                 currentSubscription = purchase
             }
@@ -115,7 +101,7 @@ class MainPageActivity : AppCompatActivity() {
         })
 
         binding.btnPurchase.setOnClickListener {
-            mSkuDetails.find { it.sku == subItemID }?.let { skuDetails ->
+            mSkuDetails.find { it.sku == subsItemID }?.let { skuDetails ->
                 manager.purchaseSku(skuDetails)
             } ?: also {
                 Toast.makeText(this, "구매 가능 한 상품이 없습니다.", Toast.LENGTH_LONG).show()

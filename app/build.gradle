@@ -11,7 +11,7 @@ android {
         applicationId "com.jaeyoung.studyapp03"
         minSdk 21
         targetSdk 32
-        versionCode 1
+        versionCode 4
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -61,7 +61,8 @@ dependencies {
     implementation 'com.google.android.gms:play-services-ads:21.2.0'
 
     //구글 결제 서비스
-    implementation("com.android.billingclient:billing-ktx:5.0.0")
+
+    implementation "com.android.billingclient:billing:5.1.0"
 
     //코루틴
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.0'
