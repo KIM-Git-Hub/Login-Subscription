@@ -2,20 +2,25 @@ package com.jaeyoung.studyapp03
 
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.jaeyoung.studyapp03.databinding.CreateAccountBinding
+import java.util.regex.Pattern
 
 
 class CreateAccountActivity : AppCompatActivity() {
 
-    private var mBinding: CreateAccountBinding? =null
+    private var mBinding: CreateAccountBinding? = null
     private val binding get() = mBinding!!
 
     private var auth: FirebaseAuth? = null
+
+    // email 검사 정규식
+    private val emailValidation = "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,18 +31,42 @@ class CreateAccountActivity : AppCompatActivity() {
 
         binding.createAccountButton.setOnClickListener {
 
-            val createEmail = binding.createEmail.text.toString()
-            val createPassword = binding.createPassword.text.toString()
-            val confirmPassword = binding.confirmPassword.text.toString()
+            val createEmail = binding.createEmail.text.toString().trim()
+            var createPassword = binding.createPassword.text.toString().trim()
+            val confirmPassword = binding.confirmPassword.text.toString().trim()
 
-            if (createPassword != confirmPassword) {
-                Toast.makeText(this, "비밀번호가 일치하지 않음", Toast.LENGTH_SHORT).show()
-            } else {
-                createAccount(createEmail, createPassword)
 
+            if(!checkEmail(createEmail)){
+                binding.checkEmailNotice.visibility = View.VISIBLE
+            }else{
+                binding.checkEmailNotice.visibility = View.INVISIBLE
             }
 
+            if (createPassword.length < 6) {
+                binding.passwordMoreThan6Notice.visibility = View.VISIBLE
+            }else{
+                binding.passwordMoreThan6Notice.visibility = View.INVISIBLE
+            }
+
+            if (createPassword != confirmPassword) {
+                binding.confirmPasswordNotice.visibility = View.VISIBLE
+                createPassword = "123"
+            }else{
+                binding.confirmPasswordNotice.visibility = View.INVISIBLE
+                createPassword = confirmPassword
+            }
+
+
+
+            createAccount(createEmail, createPassword)
+
+
+
         }
+    }
+
+    private fun checkEmail(loginEmail: String): Boolean {
+        return Pattern.matches(emailValidation, loginEmail)
     }
 
     override fun onDestroy() {

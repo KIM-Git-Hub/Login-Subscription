@@ -8,6 +8,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat.startActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -17,6 +18,7 @@ import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.*
 
 import com.jaeyoung.studyapp03.databinding.ActivityMainBinding
+import java.util.regex.Pattern
 
 
 class MainActivity : AppCompatActivity() {
@@ -26,6 +28,9 @@ class MainActivity : AppCompatActivity() {
 
     var auth: FirebaseAuth? = null
     private lateinit var googleSignInClient: GoogleSignInClient
+
+    // email 검사 정규식
+    private val emailValidation = "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,14 +52,27 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.login.setOnClickListener {
-            val loginEmail = binding.loginEmail.text.toString()
-            val loginPassword = binding.loginPassword.text.toString()
-            signIn(loginEmail, loginPassword)
+            val loginEmail = binding.loginEmail.text.toString().trim()
+            val loginPassword = binding.loginPassword.text.toString().trim()
+
+            if(loginEmail == "" || loginPassword == ""){
+                Toast.makeText(this, "아이디 혹은 비밀번호를 입력해 주세요", Toast.LENGTH_SHORT).show()
+            }else if(!checkEmail(loginEmail)){
+                Toast.makeText(this,"이메일 형식에 맞게 입력해 주세요",Toast.LENGTH_LONG).show()
+            } else{
+                signIn(loginEmail, loginPassword)
+            }
+
+
         }
 
         binding.googleLogin.setOnClickListener {
             signInGoogle()
         }
+    }
+
+    private fun checkEmail(loginEmail: String): Boolean {
+        return Pattern.matches(emailValidation, loginEmail)
     }
 
     private fun signInGoogle() {
