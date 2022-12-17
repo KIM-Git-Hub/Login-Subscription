@@ -15,7 +15,7 @@ interface BillingCallback { // BillingManager 모듈 구현 //결제 Callback �
 
 class BillingManager(private val activity: Activity, private val callback: BillingCallback) {
 
-    private val purchasesUpdatedListener = PurchasesUpdatedListener{ billingResult, purchases ->
+    private val purchasesUpdatedListener = PurchasesUpdatedListener { billingResult, purchases ->
         if (billingResult.responseCode == BillingClient.BillingResponseCode.OK && purchases != null) {
             for (purchase in purchases) {
                 confirmPurchase(purchase)

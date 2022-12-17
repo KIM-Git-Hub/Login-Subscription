@@ -3,8 +3,11 @@ package com.jaeyoung.studyapp03
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat.startActivity
 import com.android.billingclient.api.*
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdView
@@ -28,40 +31,25 @@ class MainPageActivity : AppCompatActivity() {
     val subsItemID: String = "studyapp"
 
     private var mSkuDetails = listOf<SkuDetails>()
-    set(value) {
-        field = value
-        getSkuDetails()
-    }
+        set(value) {
+            field = value
+            getSkuDetails()
+        }
 
     private var currentSubscription: Purchase? = null
-    set(value) {
-        field = value
-        updateSubscriptionState()
-    }
-
-    @SuppressLint("SetTextI18n")
-    private fun updateSubscriptionState() {
-        currentSubscription?.let {
-            binding.subState.text = "구독중: ${it.skus} "
-        } ?: also {
-            binding.subState.text = "구독권이 없습니다."
+        set(value) {
+            field = value
+            Log.d("aaaa",currentSubscription.toString()  )
+            //결제 햇는데도  null ???
+            updateSubscriptionState()
         }
-    }
-
-    private fun getSkuDetails() {
-        var info = ""
-        for (skuDetail in mSkuDetails) {
-            info += "${skuDetail.title}, ${skuDetail.price} \n"
-        }
-        Toast.makeText(this, info, Toast.LENGTH_SHORT).show()
-    }
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         auth = FirebaseAuth.getInstance()
         mBinding = MainPageBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
 
 
         binding.signOut.setOnClickListener {
@@ -93,6 +81,8 @@ class MainPageActivity : AppCompatActivity() {
             }
             override fun onSuccess(purchase: Purchase) {
                 currentSubscription = purchase
+                Log.d("vvv","vvv")
+
             }
 
             override fun onFailure(responseCode: Int) {
@@ -112,9 +102,17 @@ class MainPageActivity : AppCompatActivity() {
     }
 
 
+
     override fun onDestroy() {
         super.onDestroy()
         mBinding = null
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        manager.onResume(BillingClient.SkuType.SUBS)
+        Log.d("QQQ","QQQ")
     }
 
     private fun signOut() {
@@ -134,6 +132,25 @@ class MainPageActivity : AppCompatActivity() {
         Toast.makeText(this, "회원탈퇴 성공", Toast.LENGTH_SHORT).show()
         auth?.currentUser?.delete()
         auth?.signOut()
+    }
+
+    private fun getSkuDetails() {
+        var info = ""
+        for (skuDetail in mSkuDetails) {
+            info += "${skuDetail.title}, ${skuDetail.price} \n"
+        }
+        Toast.makeText(this, info, Toast.LENGTH_SHORT).show()
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun updateSubscriptionState() {
+        currentSubscription?.let {
+            binding.subState.text = "구독중: ${it.skus} "
+            Log.d("oooo", "oooo")
+        } ?: also {
+            binding.subState.text = "구독권이 없습니다."
+            Log.d("xxxx", "xxxx")
+        }
     }
 
 
