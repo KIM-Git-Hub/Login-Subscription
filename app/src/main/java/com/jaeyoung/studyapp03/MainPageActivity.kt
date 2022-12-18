@@ -19,7 +19,6 @@ import com.jaeyoung.studyapp03.databinding.MainPageBinding
 class MainPageActivity : AppCompatActivity() {
 
 
-
     private var mBinding: MainPageBinding? = null
     private val binding get() = mBinding!!
 
@@ -28,6 +27,7 @@ class MainPageActivity : AppCompatActivity() {
     lateinit var mAdView: AdView
 
     private lateinit var manager: BillingManager
+
     val subsItemID: String = "studyapp"
 
     private var mSkuDetails = listOf<SkuDetails>()
@@ -39,9 +39,11 @@ class MainPageActivity : AppCompatActivity() {
     private var currentSubscription: Purchase? = null
         set(value) {
             field = value
-            Log.d("aaaa",currentSubscription.toString()  )
-            //결제 햇는데도  null ???
+            Log.d("aaaa", currentSubscription.toString())
+
             updateSubscriptionState()
+
+
         }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -71,22 +73,31 @@ class MainPageActivity : AppCompatActivity() {
         //구독
         manager = BillingManager(this, object : BillingCallback {
             override fun onBillingConnected() {
-                manager.getSkuDetails(subsItemID, billingType = BillingClient.SkuType.SUBS) { list ->
+                manager.getSkuDetails(
+                    subsItemID,
+                    billingType = BillingClient.SkuType.SUBS
+                ) { list ->
                     mSkuDetails = list
                 }
 
                 manager.checkSubscribed(subsItemID) {
+                    Log.d("check", it.toString())
                     currentSubscription = it
                 }
             }
+
             override fun onSuccess(purchase: Purchase) {
                 currentSubscription = purchase
-                Log.d("vvv","vvv")
+                Log.d("vvv", "vvv")
 
             }
 
             override fun onFailure(responseCode: Int) {
-               Toast.makeText(applicationContext, "구매 도중 오류 발생(${responseCode})", Toast.LENGTH_LONG).show()
+                Toast.makeText(
+                    applicationContext,
+                    "구매 도중 오류 발생(${responseCode})",
+                    Toast.LENGTH_LONG
+                ).show()
             }
         })
 
@@ -102,7 +113,6 @@ class MainPageActivity : AppCompatActivity() {
     }
 
 
-
     override fun onDestroy() {
         super.onDestroy()
         mBinding = null
@@ -112,7 +122,7 @@ class MainPageActivity : AppCompatActivity() {
         super.onResume()
 
         manager.onResume(BillingClient.SkuType.SUBS)
-        Log.d("QQQ","QQQ")
+        Log.d("QQQ", "QQQ")
     }
 
     private fun signOut() {
@@ -146,10 +156,10 @@ class MainPageActivity : AppCompatActivity() {
     private fun updateSubscriptionState() {
         currentSubscription?.let {
             binding.subState.text = "구독중: ${it.skus} "
-            Log.d("oooo", "oooo")
+            Log.d("oooo", currentSubscription.toString())
         } ?: also {
             binding.subState.text = "구독권이 없습니다."
-            Log.d("xxxx", "xxxx")
+            Log.d("xxxx", currentSubscription.toString())
         }
     }
 

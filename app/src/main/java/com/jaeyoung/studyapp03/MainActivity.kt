@@ -9,6 +9,8 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat.startActivity
+import com.android.billingclient.api.BillingClient
+import com.android.billingclient.api.Purchase
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -28,6 +30,8 @@ class MainActivity : AppCompatActivity() {
 
     var auth: FirebaseAuth? = null
     private lateinit var googleSignInClient: GoogleSignInClient
+    private lateinit var billingClient: BillingClient
+
 
     // email 검사 정규식
     private val emailValidation = "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$"
@@ -36,6 +40,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         mBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+
 
 
         auth = FirebaseAuth.getInstance()

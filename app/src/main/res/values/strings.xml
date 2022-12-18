@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">study-app03</string>
-    <string name="email">Email</string>
+    <string name="email">Email1</string>
     <string name="password">パスワード</string>
     <string name="login">ログイン</string>
     <string name="createAccount">会員登録</string>

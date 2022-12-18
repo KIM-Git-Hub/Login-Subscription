@@ -45,7 +45,6 @@
         android:layout_height="wrap_content"
         android:id="@+id/subState"
         android:textSize="20sp"
-        android:text="멀까용"
         android:textColor="@color/black"
         android:textStyle="bold"/>
 
