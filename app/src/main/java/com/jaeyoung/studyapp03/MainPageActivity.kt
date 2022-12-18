@@ -80,9 +80,10 @@ class MainPageActivity : AppCompatActivity() {
                     mSkuDetails = list
                 }
 
-                manager.checkSubscribed(subsItemID) {
-                    Log.d("check", it.toString())
+                manager.checkSubscribed(BillingClient.SkuType.SUBS){
+                    Log.d("888888", it.toString())
                     currentSubscription = it
+
                 }
             }
 
@@ -120,10 +121,10 @@ class MainPageActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-
         manager.onResume(BillingClient.SkuType.SUBS)
-        Log.d("QQQ", "QQQ")
     }
+
+
 
     private fun signOut() {
         val intent = Intent(this, MainActivity::class.java)
