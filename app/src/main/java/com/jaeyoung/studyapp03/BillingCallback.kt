@@ -92,9 +92,9 @@ class BillingManager(private val activity: Activity, private val callback: Billi
      */
 
     fun checkSubscribed(sku: String, resultBlock: (Purchase?) -> Unit) {
-        billingClient.queryPurchasesAsync(sku) { _, purchases ->
+        billingClient.queryPurchasesAsync(sku) { test, purchases ->
             Log.d("1111", "1111")
-            Log.d("55555", purchases.toString())
+            Log.d(test.debugMessage.toString(), purchases.toString())
             CoroutineScope(Dispatchers.Main).launch {
                 for (purchase in purchases) {
                     Log.d("2222", "2222")
@@ -109,6 +109,7 @@ class BillingManager(private val activity: Activity, private val callback: Billi
     }
 
 // BillingClient: getPurchase() failed. Response code: 5
+    //Invalid SKU type
     //5. BILLING_RESPONSE_RESULT_DEVELOPER_ERROR: Invalid arguments provided to the API. This error can also indicate that the application was not correctly signed or properly set up for In-app Billing in Google Play, or does not have the necessary permissions in its manifest
 
 
