@@ -7,8 +7,9 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat.startActivity
-import com.android.billingclient.api.*
+import com.android.billingclient.api.BillingClient
+import com.android.billingclient.api.Purchase
+import com.android.billingclient.api.SkuDetails
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdView
 import com.google.android.gms.ads.MobileAds
@@ -39,11 +40,7 @@ class MainPageActivity : AppCompatActivity() {
     private var currentSubscription: Purchase? = null
         set(value) {
             field = value
-            Log.d("aaaa", currentSubscription.toString())
-
             updateSubscriptionState()
-
-
         }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,8 +48,6 @@ class MainPageActivity : AppCompatActivity() {
         auth = FirebaseAuth.getInstance()
         mBinding = MainPageBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-
 
         binding.signOut.setOnClickListener {
             signOut()
@@ -81,7 +76,6 @@ class MainPageActivity : AppCompatActivity() {
                 }
 
                 manager.checkSubscribed(BillingClient.SkuType.SUBS){
-                    Log.d("888888", it.toString())
                     currentSubscription = it
 
                 }
@@ -89,7 +83,6 @@ class MainPageActivity : AppCompatActivity() {
 
             override fun onSuccess(purchase: Purchase) {
                 currentSubscription = purchase
-                Log.d("vvv", "vvv")
 
             }
 
@@ -157,11 +150,15 @@ class MainPageActivity : AppCompatActivity() {
     private fun updateSubscriptionState() {
         currentSubscription?.let {
             binding.subState.text = "구독중: ${it.skus} "
-            Log.d("oooo", currentSubscription.toString())
+            binding.adViewBanner.visibility = View.GONE
         } ?: also {
             binding.subState.text = "구독권이 없습니다."
-            Log.d("xxxx", currentSubscription.toString())
+            binding.adViewBanner.visibility = View.VISIBLE
         }
+
+
+
+
     }
 
 
