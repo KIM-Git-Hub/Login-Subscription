@@ -91,8 +91,6 @@ class BillingManager(private val activity: Activity, private val callback: Billi
      */
 
     fun checkSubscribed(sku: String, resultBlock: (Purchase?) -> Unit) {
-
-
         billingClient.queryPurchasesAsync(sku) { _, purchases ->
             CoroutineScope(Dispatchers.Main).launch {
                 for (purchase in purchases) {

@@ -4,10 +4,12 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.android.billingclient.api.BillingClient
+import com.android.billingclient.api.ConsumeResponseListener
 import com.android.billingclient.api.Purchase
 import com.android.billingclient.api.SkuDetails
 import com.google.android.gms.ads.AdRequest
@@ -17,16 +19,14 @@ import com.google.firebase.auth.FirebaseAuth
 import com.jaeyoung.studyapp03.databinding.MainPageBinding
 
 
+
 class MainPageActivity : AppCompatActivity() {
 
 
     private var mBinding: MainPageBinding? = null
     private val binding get() = mBinding!!
-
     private var auth: FirebaseAuth? = null
-
-    lateinit var mAdView: AdView
-
+    private lateinit var mAdView: AdView
     private lateinit var manager: BillingManager
 
     val subsItemID: String = "studyapp"
@@ -75,15 +75,15 @@ class MainPageActivity : AppCompatActivity() {
                     mSkuDetails = list
                 }
 
-                manager.checkSubscribed(BillingClient.SkuType.SUBS){
+                manager.checkSubscribed(BillingClient.SkuType.SUBS) {
                     currentSubscription = it
 
                 }
             }
 
+
             override fun onSuccess(purchase: Purchase) {
                 currentSubscription = purchase
-
             }
 
             override fun onFailure(responseCode: Int) {
@@ -118,7 +118,6 @@ class MainPageActivity : AppCompatActivity() {
     }
 
 
-
     private fun signOut() {
         val intent = Intent(this, MainActivity::class.java)
         //실행하는 액티비티가 스택에 있으면 새로 시작하지 않고 상위 스택 모두 제거.
@@ -146,6 +145,7 @@ class MainPageActivity : AppCompatActivity() {
         Toast.makeText(this, info, Toast.LENGTH_SHORT).show()
     }
 
+
     @SuppressLint("SetTextI18n")
     private fun updateSubscriptionState() {
         currentSubscription?.let {
@@ -155,8 +155,6 @@ class MainPageActivity : AppCompatActivity() {
             binding.subState.text = "구독권이 없습니다."
             binding.adViewBanner.visibility = View.VISIBLE
         }
-
-
 
 
     }

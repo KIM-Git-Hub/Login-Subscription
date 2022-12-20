@@ -30,8 +30,6 @@ class MainActivity : AppCompatActivity() {
 
     var auth: FirebaseAuth? = null
     private lateinit var googleSignInClient: GoogleSignInClient
-    private lateinit var billingClient: BillingClient
-
 
     // email 검사 정규식
     private val emailValidation = "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$"

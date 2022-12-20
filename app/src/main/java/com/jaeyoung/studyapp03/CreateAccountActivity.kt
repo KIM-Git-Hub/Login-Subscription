@@ -32,7 +32,7 @@ class CreateAccountActivity : AppCompatActivity() {
         binding.createAccountButton.setOnClickListener {
 
             val createEmail = binding.createEmail.text.toString().trim()
-            var createPassword = binding.createPassword.text.toString().trim()
+            val createPassword = binding.createPassword.text.toString().trim()
             val confirmPassword = binding.confirmPassword.text.toString().trim()
 
 
@@ -50,15 +50,23 @@ class CreateAccountActivity : AppCompatActivity() {
 
             if (createPassword != confirmPassword) {
                 binding.confirmPasswordNotice.visibility = View.VISIBLE
-                createPassword = "123"
             }else{
                 binding.confirmPasswordNotice.visibility = View.INVISIBLE
-                createPassword = confirmPassword
+            }
+
+            if(createEmail.isEmpty() && createPassword.isEmpty()){
+                binding.checkEmailNotice.visibility = View.VISIBLE
+                binding.passwordMoreThan6Notice.visibility = View.VISIBLE
+            }else if(createEmail.isEmpty()){
+                binding.checkEmailNotice.visibility = View.VISIBLE
+            }else if (createPassword.isEmpty()){
+                binding.passwordMoreThan6Notice.visibility = View.VISIBLE
+            }else{
+                createAccount(createEmail, createPassword)
             }
 
 
 
-            createAccount(createEmail, createPassword)
 
 
 
