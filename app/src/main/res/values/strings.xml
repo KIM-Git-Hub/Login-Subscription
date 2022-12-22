@@ -1,6 +1,6 @@
 <resources>
-    <string name="app_name">study-app03</string>
-    <string name="email">Email1</string>
+    <string name="app_name">Login&amp;Subscription</string>
+    <string name="email">メールアドレス</string>
     <string name="password">パスワード</string>
     <string name="login">ログイン</string>
     <string name="createAccount">会員登録</string>
@@ -8,4 +8,7 @@
     <string name="logout">ログアウト</string>
     <string name="googleLogin">GOOGLE</string>
     <string name="revokeAccess">revoke</string>
+    <string name="emailCheck">メールアドレスの形式が正しくありません。</string>
+    <string name="passwordMoreThan6">6文字以上のパスワードを作成する必要があります。</string>
+    <string name="passwordCheck">パスワードが一致しません。</string>
 </resources>

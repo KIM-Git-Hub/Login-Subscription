@@ -4,12 +4,11 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat.startActivity
 import com.android.billingclient.api.BillingClient
-import com.android.billingclient.api.ConsumeResponseListener
 import com.android.billingclient.api.Purchase
 import com.android.billingclient.api.SkuDetails
 import com.google.android.gms.ads.AdRequest
@@ -17,7 +16,6 @@ import com.google.android.gms.ads.AdView
 import com.google.android.gms.ads.MobileAds
 import com.google.firebase.auth.FirebaseAuth
 import com.jaeyoung.studyapp03.databinding.MainPageBinding
-
 
 
 class MainPageActivity : AppCompatActivity() {
@@ -84,6 +82,7 @@ class MainPageActivity : AppCompatActivity() {
 
             override fun onSuccess(purchase: Purchase) {
                 currentSubscription = purchase
+
             }
 
             override fun onFailure(responseCode: Int) {

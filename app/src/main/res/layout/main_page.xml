@@ -5,21 +5,10 @@
     android:orientation="vertical"
     android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/signOut"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/logout"/>
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/revokeAccess"
-        android:text="@string/revokeAccess"/>
 
     <com.google.android.gms.ads.AdView
         android:id="@+id/adViewBanner"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:visibility="visible"
         ads:adSize="BANNER"
@@ -56,4 +45,19 @@
         android:layout_height="wrap_content"
         android:text="결제하기"
         android:id="@+id/btn_purchase"/>
+
+
+
+    <Button
+        android:id="@+id/signOut"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/logout"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/revokeAccess"
+        android:text="@string/revokeAccess"/>
+
 </LinearLayout>
