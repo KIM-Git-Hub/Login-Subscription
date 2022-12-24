@@ -5,6 +5,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -60,9 +61,9 @@ class MainActivity : AppCompatActivity() {
             val loginPassword = binding.loginPassword.text.toString().trim()
 
             if(loginEmail == "" || loginPassword == ""){
-                Toast.makeText(this, "아이디 혹은 비밀번호를 입력해 주세요", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "メールアドレスやパスワードを入力してください。", Toast.LENGTH_SHORT).show()
             }else if(!checkEmail(loginEmail)){
-                Toast.makeText(this,"이메일 형식에 맞게 입력해 주세요",Toast.LENGTH_LONG).show()
+                Toast.makeText(this,"メールアドレスの形式が正しくありません。",Toast.LENGTH_LONG).show()
             } else{
                 signIn(loginEmail, loginPassword)
             }
@@ -110,8 +111,10 @@ class MainActivity : AppCompatActivity() {
                 if (task.isSuccessful) {
                     val user = auth!!.currentUser
                     movePageActivity(user)
+                    Toast.makeText(this, "ログイン", Toast.LENGTH_SHORT).show()
                 } else {
                     Log.d("로그인 실패", task.exception.toString())
+                    Toast.makeText(this, "ログイン失敗", Toast.LENGTH_SHORT).show()
                 }
             }
     }
@@ -120,10 +123,10 @@ class MainActivity : AppCompatActivity() {
         auth?.signInWithEmailAndPassword(loginEmail, loginPassword)
             ?.addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    Toast.makeText(this, "로그인 성공", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "ログイン", Toast.LENGTH_SHORT).show()
                     movePageActivity(auth?.currentUser)
                 } else {
-                    Toast.makeText(this, "로그인 실패", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "ログイン失敗", Toast.LENGTH_SHORT).show()
                 }
             }
     }

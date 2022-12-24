@@ -87,14 +87,14 @@ class CreateAccountActivity : AppCompatActivity() {
             ?.addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     Toast.makeText(
-                        this, "계정 생성 완료.",
+                        this, "アカウント作成完了",
                         Toast.LENGTH_SHORT
                     ).show()
                     finish() // 가입창 종료
                 } else {
 
                     Toast.makeText(
-                        this, "계정 생성 실패",
+                        this, "アカウント作成失敗",
                         Toast.LENGTH_SHORT
                     ).show()
                 }

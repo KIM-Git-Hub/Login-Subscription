@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
     xmlns:ads="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:orientation="vertical"
-    android:layout_height="match_parent">
+    android:weightSum="10">
 
 
     <com.google.android.gms.ads.AdView
@@ -15,49 +16,67 @@
         ads:adUnitId="ca-app-pub-3940256099942544/6300978111" />
 
 
-<LinearLayout
-    android:layout_marginTop="30dp"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal">
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="sub : "
-        android:textSize="20sp"
-        android:textColor="@color/black"
-        android:textStyle="bold"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/subState"
-        android:textSize="20sp"
-        android:textColor="@color/black"
-        android:textStyle="bold"/>
-
-
-</LinearLayout>
-
-    <Button
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="결제하기"
-        android:id="@+id/btn_purchase"/>
+        android:layout_height="0dp"
+        android:layout_weight="10"
+        android:gravity="center"
+        android:orientation="vertical">
 
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/subscriptionState"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/subState"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/btn_purchase"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/subscription" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
 
 
     <Button
         android:id="@+id/signOut"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/logout"/>
+        android:text="@string/logout" />
 
     <Button
+        android:id="@+id/revokeAccess"
+        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/revokeAccess"
-        android:text="@string/revokeAccess"/>
+        android:text="@string/revokeAccess" />
+
 
 </LinearLayout>

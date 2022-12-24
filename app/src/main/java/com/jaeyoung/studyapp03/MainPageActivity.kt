@@ -88,7 +88,7 @@ class MainPageActivity : AppCompatActivity() {
             override fun onFailure(responseCode: Int) {
                 Toast.makeText(
                     applicationContext,
-                    "구매 도중 오류 발생(${responseCode})",
+                    "購入処理中にエラーが発生しました。(${responseCode})",
                     Toast.LENGTH_LONG
                 ).show()
             }
@@ -98,7 +98,7 @@ class MainPageActivity : AppCompatActivity() {
             mSkuDetails.find { it.sku == subsItemID }?.let { skuDetails ->
                 manager.purchaseSku(skuDetails)
             } ?: also {
-                Toast.makeText(this, "구매 가능 한 상품이 없습니다.", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "購入できる商品がありません。", Toast.LENGTH_LONG).show()
             }
         }
 
@@ -122,7 +122,7 @@ class MainPageActivity : AppCompatActivity() {
         //실행하는 액티비티가 스택에 있으면 새로 시작하지 않고 상위 스택 모두 제거.
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         startActivity(intent)
-        Toast.makeText(this, "로그아웃 성공", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, "ログアウト", Toast.LENGTH_SHORT).show()
         auth?.signOut()
     }
 
@@ -131,7 +131,7 @@ class MainPageActivity : AppCompatActivity() {
         //실행하는 액티비티가 스택에 있으면 새로 시작하지 않고 상위 스택 모두 제거.
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         startActivity(intent)
-        Toast.makeText(this, "회원탈퇴 성공", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, "アカウント削除", Toast.LENGTH_SHORT).show()
         auth?.currentUser?.delete()
         auth?.signOut()
     }
@@ -148,10 +148,10 @@ class MainPageActivity : AppCompatActivity() {
     @SuppressLint("SetTextI18n")
     private fun updateSubscriptionState() {
         currentSubscription?.let {
-            binding.subState.text = "구독중: ${it.skus} "
+            binding.subState.text = "会員「${it.skus}」"
             binding.adViewBanner.visibility = View.GONE
         } ?: also {
-            binding.subState.text = "구독권이 없습니다."
+            binding.subState.text = "会員ではありません。"
             binding.adViewBanner.visibility = View.VISIBLE
         }
 
