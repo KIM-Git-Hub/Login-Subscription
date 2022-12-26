@@ -9,8 +9,9 @@
     <string name="googleLogin">GOOGLE</string>
     <string name="revokeAccess">アカウント削除</string>
     <string name="emailCheck">メールアドレスの形式が正しくありません。</string>
-    <string name="passwordMoreThan6">6文字以上のパスワードを作成する必要があります。</string>
+    <string name="passwordMoreThan6">6文字以上のパスワード作成が必要。</string>
     <string name="passwordCheck">パスワードが一致しません。</string>
     <string name="subscription">会員登録</string>
-    <string name="subscriptionState">SUB : </string>
+    <string name="subscriptionState">SUB :</string>
+    <string name="reloadButton">リロード</string>
 </resources>

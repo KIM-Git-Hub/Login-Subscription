@@ -3,11 +3,9 @@ package com.jaeyoung.studyapp03
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat.startActivity
 import com.android.billingclient.api.BillingClient
 import com.android.billingclient.api.Purchase
 import com.android.billingclient.api.SkuDetails
@@ -89,7 +87,7 @@ class MainPageActivity : AppCompatActivity() {
                 Toast.makeText(
                     applicationContext,
                     "購入処理中にエラーが発生しました。(${responseCode})",
-                    Toast.LENGTH_LONG
+                    Toast.LENGTH_SHORT
                 ).show()
             }
         })
@@ -98,10 +96,19 @@ class MainPageActivity : AppCompatActivity() {
             mSkuDetails.find { it.sku == subsItemID }?.let { skuDetails ->
                 manager.purchaseSku(skuDetails)
             } ?: also {
-                Toast.makeText(this, "購入できる商品がありません。", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "購入できる商品がありません。", Toast.LENGTH_SHORT).show()
             }
         }
 
+
+        binding.reloadButton.setOnClickListener {
+            finish() //인텐트 종료
+            overridePendingTransition(0, 0) //인텐트 효과 없애기
+            val intent = intent //인텐트
+            startActivity(intent) //액티비티 열기
+            overridePendingTransition(0, 0) //인텐트 효과 없애기
+
+        }
 
     }
 
@@ -148,7 +155,7 @@ class MainPageActivity : AppCompatActivity() {
     @SuppressLint("SetTextI18n")
     private fun updateSubscriptionState() {
         currentSubscription?.let {
-            binding.subState.text = "会員「${it.skus}」"
+            binding.subState.text = " 会員 ${it.skus}"
             binding.adViewBanner.visibility = View.GONE
         } ?: also {
             binding.subState.text = "会員ではありません。"
