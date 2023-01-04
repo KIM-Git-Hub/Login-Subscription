@@ -14,7 +14,7 @@ android {
         applicationId "com.jaeyoung.studyapp03"
         minSdk 21
         targetSdk 32
-        versionCode 8
+        versionCode 9
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -59,7 +59,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth-ktx:21.0.5'
     implementation 'com.google.firebase:firebase-database-ktx:20.0.5'
     implementation 'com.google.firebase:firebase-auth:21.0.5'
-    implementation 'com.google.android.gms:play-services-auth:20.2.0'
+
 
     //admob
     implementation 'com.google.android.gms:play-services-ads:21.2.0'

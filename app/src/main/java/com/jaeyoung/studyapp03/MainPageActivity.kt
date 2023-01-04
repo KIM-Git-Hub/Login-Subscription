@@ -102,11 +102,7 @@ class MainPageActivity : AppCompatActivity() {
 
 
         binding.reloadButton.setOnClickListener {
-            finish() //인텐트 종료
-            overridePendingTransition(0, 0) //인텐트 효과 없애기
-            val intent = intent //인텐트
-            startActivity(intent) //액티비티 열기
-            overridePendingTransition(0, 0) //인텐트 효과 없애기
+            reloadActivity()
 
         }
 
@@ -131,6 +127,7 @@ class MainPageActivity : AppCompatActivity() {
         startActivity(intent)
         Toast.makeText(this, "ログアウト", Toast.LENGTH_SHORT).show()
         auth?.signOut()
+        finish() //현재 액티비티 종료
     }
 
     private fun revokeAccess() {
@@ -141,6 +138,7 @@ class MainPageActivity : AppCompatActivity() {
         Toast.makeText(this, "アカウント削除", Toast.LENGTH_SHORT).show()
         auth?.currentUser?.delete()
         auth?.signOut()
+        finish()
     }
 
     private fun getSkuDetails() {
@@ -149,6 +147,14 @@ class MainPageActivity : AppCompatActivity() {
             info += "${skuDetail.title}, ${skuDetail.price} \n"
         }
         Toast.makeText(this, info, Toast.LENGTH_SHORT).show()
+    }
+
+    private fun reloadActivity() {
+        finish() //인텐트 종료
+        overridePendingTransition(0, 0) //인텐트 효과 없애기
+        val intent = intent //인텐트
+        startActivity(intent) //액티비티 열기
+        overridePendingTransition(0, 0) //인텐트 효과 없애기
     }
 
 
