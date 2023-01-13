@@ -3,7 +3,7 @@
     <string name="email">メールアドレス</string>
     <string name="password">パスワード</string>
     <string name="login">ログイン</string>
-    <string name="createAccount">会員登録</string>
+    <string name="createAccount">アカウント登録</string>
     <string name="confirmPassword">パスワード確認</string>
     <string name="logout">ログアウト</string>
     <string name="googleLogin">GOOGLE</string>

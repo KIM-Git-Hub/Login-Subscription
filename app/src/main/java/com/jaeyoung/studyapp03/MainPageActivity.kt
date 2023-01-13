@@ -161,7 +161,7 @@ class MainPageActivity : AppCompatActivity() {
     @SuppressLint("SetTextI18n")
     private fun updateSubscriptionState() {
         currentSubscription?.let {
-            binding.subState.text = " 会員 ${it.skus}"
+            binding.subState.text = " 会員 [${resources.getString(R.string.app_name)}]"
             binding.adViewBanner.visibility = View.GONE
         } ?: also {
             binding.subState.text = "会員ではありません。"
