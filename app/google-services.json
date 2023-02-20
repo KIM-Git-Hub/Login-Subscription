@@ -14,11 +14,11 @@
       },
       "oauth_client": [
         {
-          "client_id": "457909892680-pk562hco21oihpad23n730qt4sfvc5n9.apps.googleusercontent.com",
+          "client_id": "457909892680-bmto58tqn4d6n1ap1nfj4pqud8697rab.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.jaeyoung.studyapp03",
-            "certificate_hash": "de4ca69cc9003483a3cc2d7bc4867d425fa9227b"
+            "certificate_hash": "3a5c7de4d61779a7688399a2e339f9c66d1b7631"
           }
         },
         {
