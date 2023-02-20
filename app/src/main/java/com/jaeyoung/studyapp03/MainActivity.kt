@@ -116,6 +116,7 @@ class MainActivity : AppCompatActivity() {
                     Log.d("로그인 실패", task.exception.toString())
                     Toast.makeText(this, "ログイン失敗", Toast.LENGTH_SHORT).show()
                 }
+                Log.d("googleLoginFail", task.exception?.message.toString())
             }
     }
 
