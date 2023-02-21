@@ -45,7 +45,7 @@ class MainActivity : AppCompatActivity() {
 
         auth = FirebaseAuth.getInstance()
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken("457909892680-o9c8mhrsrh9kp8k6qdfp8qjkkjsuoqsp.apps.googleusercontent.com")
+            .requestIdToken(getString(R.string.default_web_client_id))
             .requestEmail()
             .build()
         googleSignInClient = GoogleSignIn.getClient(this, gso)
@@ -83,7 +83,6 @@ class MainActivity : AppCompatActivity() {
     private fun signInGoogle() {
         val signInIntent = googleSignInClient.signInIntent
         startForResult.launch(signInIntent)
-
     }
 
     private val startForResult =
@@ -98,6 +97,9 @@ class MainActivity : AppCompatActivity() {
                 }catch (e: ApiException){
                     Log.d("startForResult", e.toString())
                 }
+            }else{
+                Log.d("ssss", result.resultCode.toString())
+                Log.d("ssss", result.toString())
             }
 
         }
