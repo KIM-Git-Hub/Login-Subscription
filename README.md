@@ -2,7 +2,7 @@
 <img src="https://user-images.githubusercontent.com/100995721/211977754-041380fb-e7a8-47db-a8df-5a99b5efd877.png"  width="200" height="200">
 ログイン機能と定期決済機能の具現（勉強目的のアプリケーション）<br/>
 
-##### ※ログイン機能と定期決済機能との関係はありません。<br/>
+# Usage
 
 <img src="https://user-images.githubusercontent.com/100995721/212252429-2a363007-fa62-4085-99fe-88ffadc5bf43.jpg"  width="30%" height="30%">
 （ログイン画面）<br/>
