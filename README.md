@@ -4,11 +4,6 @@
 
 ##### ※ログイン機能と定期決済機能との関係はありません。<br/>
 
-# Installation
-<img src="https://user-images.githubusercontent.com/100995721/220040591-be40830a-4db6-4177-a94d-ddc14bc8e9c8.png"  width="200" height="200"><br/>
-内部アプリ共有 :　https://play.google.com/apps/test/RQSf_IT0JIk/ahACEklfb9g-9RtFtXzJ9LbZDuEEDfq_OB6XozOXFx9hRRttFElOA5J2ANfdkFy0JShZHn2TbWGY5QzmHikMu-o2DL <br/>
-
-# Usage
 <img src="https://user-images.githubusercontent.com/100995721/212252429-2a363007-fa62-4085-99fe-88ffadc5bf43.jpg"  width="30%" height="30%">
 （ログイン画面）<br/>
 １．ログインボタンクリック、ログインが成功した時にメイン画面に移動<br/>
